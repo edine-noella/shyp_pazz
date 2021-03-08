@@ -1,0 +1,32 @@
+{
+  "name": "shypment-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\"",
+    "build":"node src --out-dir dist",
+    "start":"nodemon src/index.js",
+    "start:dev":"nodemon src/index.js",
+    "start:prod":"node src/index.js",
+    "migrate":"sequelize db:migrate",
+    "seed":"sequelize db:seed:all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PatrickNiyogitare28/shypment-backend.git"
+  },
+  "author": "patrickniyogitare28",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PatrickNiyogitare28/shypment-backend/issues"
+  },
+  "homepage": "https://github.com/PatrickNiyogitare28/shypment-backend#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "pg": "^8.5.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.5.0",
+    "sequelize-cli": "^6.2.0"
+  }
+}
