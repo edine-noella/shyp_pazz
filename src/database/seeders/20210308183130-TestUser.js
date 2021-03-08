@@ -18,7 +18,5 @@ module.exports = {
     {},
   ),
 
-  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Users', null, {}),
+  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('TestUser', null, {}),
 };
-
-// database/seeds/xxxx-User.js
