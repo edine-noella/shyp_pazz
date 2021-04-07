@@ -27,5 +27,10 @@ const signin = async(req,res) => {
     });
 }
 
-export {signin};
+const logout = async(_,res) => {
+   process.env.JWT_KEY = undefined;
+   return res.status(200).json({message: 'logged out successfully'});
+}
+
+export {signin, logout};
 
