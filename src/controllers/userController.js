@@ -2,6 +2,7 @@ import {verifyPassword} from '../utils/argon.util';
 import models from '../database/models';
 import * as _ from 'lodash';
 import { signToken } from '../helpers/jwtHelper';
+import {sendResetPasswordMail} from '../helpers/mailerHelper';
 
 const _lodashProps = ['name','email','createdAt', 'updatedAt'];
 
@@ -32,5 +33,9 @@ const logout = async(_,res) => {
    return res.status(200).json({message: 'logged out successfully'});
 }
 
-export {signin, logout};
+const resetPassword = async(req,res) => {
+  sendResetPasswordMail();
+  return res.status(200).json({message: 'reset password link sent'});
+}
+export {signin, logout, resetPassword};
 
