@@ -1,8 +1,9 @@
-import {verifyPassword} from '../utils/argon.util';
+import {hashPassword,verifyPassword} from '../utils/argon.util';
 import models from '../database/models';
 import * as _ from 'lodash';
 import { signToken } from '../helpers/jwtHelper';
 import {sendResetPasswordMail} from '../helpers/mailerHelper';
+import {uuiSigner} from '../utils/signUniqueId';
 
 const _lodashProps = ['name','email','createdAt', 'updatedAt'];
 /*
@@ -77,5 +78,41 @@ TODO: function optimazation after singup feature is merged
 const findUserByEmail = (email) => {
  return users.findIndex(user => user.email == email);
 }
-export {signin, logout, requestResetPassword};
+
+const  signup  =  async(req,res) => {
+  req.body.password  = await  hashPassword(req.body.password)
+  // const {name, email,password,username,country,phone,userType} = req.body;
+  // const hashedPassword = await hashPassword(password);
+  // const newUser = await models.User.create({name, email,password:hashedPassword,username,country,phone,userType});
+  // if(newUser)
+  //  return res.status(201).json({message: 'user registered', testUser: newUser});
+  
+models.User.findOne({
+    where: {
+      email: req.body.email
+    }
+  })
+    .then(async(user) => {
+      if (user) {
+        return res.status(409).json({
+          message: 'Email already registered',
+        });
+      }
+     let newUser =  await models.User.create({
+        id: uuiSigner(),
+        name: req.body.name,
+        phone: req.body.phone || '',
+        email: req.body.email,
+        password: req.body.password,
+        username: req.body.username,
+        userType: req.body.userType,
+        country: req.body.country
+  })
+  return res.status(201).json({message: 'user registered', user: newUser})
+     
+    })
+    .catch((error) => res.status(400).json(error.message));
+};
+
+export {signin,signup,logout, requestResetPassword};
 
