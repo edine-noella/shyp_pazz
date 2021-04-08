@@ -37,6 +37,7 @@ Migrations are run to udated the local/product tables
 # Generating a seed
 `sequelize seed:generate --name <modelName/tableName>`
 
+
 # Running seeds
 Seed are run to have the sample data in database tables
 
