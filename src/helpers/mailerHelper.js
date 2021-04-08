@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 import {compile} from 'handlebars';
 
 import {resetPasswordTemplate} from '../public/templates/resetPassword';
-const sendResetPasswordMail = () => {
+const sendResetPasswordMail = (email,firstname, code) => {
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -12,14 +12,13 @@ let transporter = nodemailer.createTransport({
   });
   
   let template = compile(resetPasswordTemplate());
-  let data = {firstname:'Patrick', code: '125733'};
+  let data = {firstname, code};
   let mail = template(data);
 
   let mailOptions = {
     from: 'shypment@gmail.com',
-    to: 'patrickniyogitare28@gmail.com',
-    subject: 'Sending Email using Node.js',
-    text: 'That was easy!',
+    to: email,
+    subject: 'Sypement- reset password',
     html:  mail
   };
   

@@ -5,7 +5,33 @@ import { signToken } from '../helpers/jwtHelper';
 import {sendResetPasswordMail} from '../helpers/mailerHelper';
 
 const _lodashProps = ['name','email','createdAt', 'updatedAt'];
+/*
+dummy user model
+*/
+const users = [
+  {
+    firstname:'John',
+    lastname:'Doe',
+    password: 'test@123',
+    email: 'johndoe@gmail.com'
+  },
+  {
+    firstname:'Keny',
+    lastname:'The ninja',
+    password: 'test@123',
+    email: 'kenytheninja@gmail.com'
+  },
+  {
+    firstname:'Patrick',
+    lastname:'Test',
+    password: 'test@123',
+    email: 'patrickniyogitare28@gmail.com'
+  }
+]
 
+/*
+TODO: ckeck if user was verified
+*/
 const signin = async(req,res) => {
     const {email,password} = req.body;
     let user;
@@ -33,9 +59,23 @@ const logout = async(_,res) => {
    return res.status(200).json({message: 'logged out successfully'});
 }
 
-const resetPassword = async(req,res) => {
-  sendResetPasswordMail();
+const requestResetPassword = async(req,res) => {
+  const {email} = req.body;
+  const index = findUserByEmail(email);
+  if(index == -1)
+    return res.status(401).json({message: 'unauthorized'});
+
+  const {firstname} = users[index];
+
+  sendResetPasswordMail(email,firstname, 120347);
   return res.status(200).json({message: 'reset password link sent'});
 }
-export {signin, logout, resetPassword};
+
+/*
+TODO: function optimazation after singup feature is merged
+*/
+const findUserByEmail = (email) => {
+ return users.findIndex(user => user.email == email);
+}
+export {signin, logout, requestResetPassword};
 
