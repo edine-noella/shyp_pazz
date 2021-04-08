@@ -1,13 +1,15 @@
 import nodemailer from 'nodemailer';
 import {compile} from 'handlebars';
-
+import {config} from 'dotenv';
 import {resetPasswordTemplate} from '../public/templates/resetPassword';
+
+config();
 const sendResetPasswordMail = (email,name, code) => {
 let transporter = nodemailer.createTransport({
-    service: 'gmail',
+    service: process.env.MAIL_SERVICE,
     auth: {
-      user: 'shypment@gmail.com',
-      pass: '#@shyp250.'
+      user: process.env.APP_EMAIL,
+      pass: process.env.APP_EMAIL_PASS
     }
   });
   
@@ -16,7 +18,7 @@ let transporter = nodemailer.createTransport({
   let mail = template(data);
 
   let mailOptions = {
-    from: 'shypment@gmail.com',
+    from: process.env.APP_EMAIL,
     to: email,
     subject: 'Sypement- reset password',
     html:  mail
