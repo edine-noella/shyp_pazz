@@ -2,7 +2,7 @@ import nodemailer from 'nodemailer';
 import {compile} from 'handlebars';
 
 import {resetPasswordTemplate} from '../public/templates/resetPassword';
-const sendResetPasswordMail = (email,firstname, code) => {
+const sendResetPasswordMail = (email,name, code) => {
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -12,7 +12,7 @@ let transporter = nodemailer.createTransport({
   });
   
   let template = compile(resetPasswordTemplate());
-  let data = {firstname, code};
+  let data = {name, code};
   let mail = template(data);
 
   let mailOptions = {
