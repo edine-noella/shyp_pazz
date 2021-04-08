@@ -2,7 +2,7 @@ import 'dotenv/config';
 import express from 'express';
 import TestUserRoutes from './routers/testUserRouter';
 import userRoutes from './routers/userRoutes';
-
+console.log("Here")
 const app = express();
 const BASE_URL = process.env.BASE_URL;
 

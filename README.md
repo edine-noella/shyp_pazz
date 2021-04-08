@@ -35,7 +35,8 @@ Migrations are run to udated the local/product tables
 ``npm run migrate``
 
 # Generating a seed
-`sequelize seed:gerate --name <modelName/tableName>`
+`sequelize seed:generate --name <modelName/tableName>`
+
 
 # Running seeds
 Seed are run to have the sample data in database tables
