@@ -5,7 +5,7 @@ import { signToken } from '../helpers/jwtHelper';
 import {sendResetPasswordMail} from '../helpers/mailerHelper';
 import {uuiSigner} from '../utils/signUniqueId';
 
-const _lodashProps = ['name','email','createdAt', 'updatedAt'];
+const _lodashProps = ['id','name','email','username','phone','userType','createdAt', 'updatedAt',];
 /*
 dummy user model
 */
@@ -34,20 +34,20 @@ const users = [
 TODO: ckeck if user was verified
 */
 const signin = async(req,res) => {
-    const {email,password} = req.body;
+    const {username,password} = req.body;
     let user;
     try{
-     user = await models.TestUser.findOne({where: {email}})
+     user = await models.User.findOne({where: {username}})
      if(!user)
-      return res.status(401).json({message: "Invalid email or password"});
+      return res.status(401).json({message: "Invalid username or password 1"});
      }
     catch(e){
-      return res.status(401).json({message: "Invalid email or password"});
+      return res.status(401).json({message: "Invalid username or password 2"});
     }
     const isPasswordValid = await verifyPassword(user.password, password);
     const token = await signToken(_.pick(user,_lodashProps));
     if(!isPasswordValid)
-      return res.status(401).json({message: "Invalid email or password"});
+      return res.status(401).json({message: "Invalid username or password 3"});
     return res.status(200).json({
       message: "authorized", 
       user: _.pick(user,_lodashProps),
@@ -80,35 +80,35 @@ const findUserByEmail = (email) => {
 }
 
 const  signup  =  async(req,res) => {
-  req.body.password  = await  hashPassword(req.body.password)
-  // const {name, email,password,username,country,phone,userType} = req.body;
-  // const hashedPassword = await hashPassword(password);
-  // const newUser = await models.User.create({name, email,password:hashedPassword,username,country,phone,userType});
-  // if(newUser)
-  //  return res.status(201).json({message: 'user registered', testUser: newUser});
-  
+  const {name, email,password,username,country,phone} = req.body;
+  const hashedPassword = await hashPassword(password);
+ 
 models.User.findOne({
     where: {
-      email: req.body.email
+      username: req.body.username
     }
   })
     .then(async(user) => {
       if (user) {
         return res.status(409).json({
-          message: 'Email already registered',
+          message: 'username not available',
         });
       }
      let newUser =  await models.User.create({
         id: uuiSigner(),
-        name: req.body.name,
-        phone: req.body.phone || '',
-        email: req.body.email,
-        password: req.body.password,
-        username: req.body.username,
-        userType: req.body.userType,
-        country: req.body.country
+        name,
+        phone,
+        email,
+        password: hashedPassword,
+        username,
+        country
   })
-  return res.status(201).json({message: 'user registered', user: newUser})
+  const token = await signToken(_.pick(newUser,_lodashProps));
+  return res.status(201).json({
+    message: 'user registered', 
+    user: _.pick(newUser, _lodashProps), 
+    token
+  })
      
     })
     .catch((error) => res.status(400).json(error.message));
