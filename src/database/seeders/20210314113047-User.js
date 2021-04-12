@@ -12,7 +12,7 @@ module.exports = {
         username: 'kenny',
         phone: '078888888',
         country: 'Rwanda',
-        userType: null,
+        userType: 'STANDARD_USER',
         createdAt: new Date(),
         updatedAt: new Date(),
       },

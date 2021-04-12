@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING,
     country: DataTypes.STRING,
     username: DataTypes.STRING,
-    userType: DataTypes.STRING
+    userType: DataTypes.ENUM(['STANDARD_USER','ADMIN','SHYP_CREW','SHYP_PATRON'])
   }, {
     sequelize,
     modelName: 'User',

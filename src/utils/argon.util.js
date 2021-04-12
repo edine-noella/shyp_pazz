@@ -1,3 +1,4 @@
+  
 import {hash,verify} from 'argon2';
 
 const hashPassword = async(password) => {
