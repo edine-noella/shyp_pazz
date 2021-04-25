@@ -1,7 +1,4 @@
 import models from '../database/models';
-import travel_information from '../database/models/travel_information';
-import {uuiSigner} from '../utils/signUniqueId';
-
 
 //creating a travel information
 const  uploadTravelInfo =  async(req,res) => {

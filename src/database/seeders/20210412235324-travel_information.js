@@ -3,7 +3,7 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
    
-      await queryInterface.bulkInsert('travel_information', [{
+      await queryInterface.bulkInsert('travel_informations', [{
         id: Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
         .substring(1),
@@ -24,7 +24,7 @@ module.exports = {
     
   },
 
-  down: async (queryInterface, Sequelize) => {await queryInterface.bulkDelete('travel_information', null, {});
+  down: async (queryInterface, Sequelize) => {await queryInterface.bulkDelete('travel_informations', null, {});
    
   }
 };
