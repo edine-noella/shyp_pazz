@@ -1,5 +1,6 @@
 'use strict';
-
+const enums = require('../../helpers/enums');
+const {userRoles} = enums;
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Users', {
@@ -36,8 +37,8 @@ module.exports = {
         unique: true
       },
       userType: {
-        type: Sequelize.STRING,
-        defaultValue: 'STANDARD_USER'
+        type: Sequelize.ENUM([userRoles.STANDARD,userRoles.ADMIN,userRoles.SHYP_CREW,userRoles.SHYP_PATRON]),
+        defaultValue: userRoles.STANDARD
       },
       isVerified: {
         type: Sequelize.BOOLEAN,

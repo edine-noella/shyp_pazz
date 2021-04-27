@@ -4,6 +4,8 @@ import TestUserRoutes from './routers/testUserRouter';
 import userRoutes from './routers/userRoutes';
 import travelRoute  from './routers/travelRoute';
 import parcelRoute from './routers/parcelRoute';
+import shypcrewRoutes from './routers/shypcrewRoutes';
+
 console.log("Here")
 const app = express();
 const BASE_URL = process.env.BASE_URL;
@@ -17,5 +19,6 @@ app.use(`${BASE_URL}/testUser`, TestUserRoutes);
 app.use(`${BASE_URL}/user`, userRoutes);
 app.use(`${BASE_URL}/travel_information`, travelRoute);
 app.use(`${BASE_URL}/parcelRequested`, parcelRoute);
+app.use(`${BASE_URL}/shypcrew`, shypcrewRoutes);
 
 module.exports = app;
