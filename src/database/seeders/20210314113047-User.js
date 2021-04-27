@@ -1,3 +1,7 @@
+const enums = require('../../helpers/enums');
+const {userRoles} = enums;
+console.log("User type"+userRoles.ADMIN);
+
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.bulkInsert(
     'Users',
@@ -12,7 +16,7 @@ module.exports = {
         username: 'kenny',
         phone: '078888888',
         country: 'Rwanda',
-        userType: 'STANDARD_USER',
+        userType: userRoles.STANDARD,
         createdAt: new Date(),
         updatedAt: new Date(),
       },

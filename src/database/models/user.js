@@ -1,4 +1,6 @@
 'use strict';
+const enums = require('../../helpers/enums');
+const {userRoles} = enums;
 const {
   Model
 } = require('sequelize');
@@ -20,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING,
     country: DataTypes.STRING,
     username: DataTypes.STRING,
-    userType: DataTypes.ENUM(['STANDARD_USER','ADMIN','SHYP_CREW','SHYP_PATRON'])
+    userType: DataTypes.ENUM([userRoles.STANDARD,userRoles.ADMIN,userRoles.SHYP_CREW,userRoles.SHYP_PATRON])
   }, {
     sequelize,
     modelName: 'User',
