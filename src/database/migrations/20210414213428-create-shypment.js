@@ -7,12 +7,11 @@ const {
 
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('Shypments', {
+    await queryInterface.createTable('ShypCrews', {
       id: {
         allowNull: false,
-        autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       userId:{
         type:Sequelize.STRING,
@@ -91,6 +90,6 @@ module.exports = {
     });
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('Shypments');
+    await queryInterface.dropTable('ShypCrews');
   }
 };

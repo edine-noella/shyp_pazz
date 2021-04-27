@@ -134,5 +134,17 @@ const findUserByEmail = async(email) => {
      return false;
   }
  }
-export {signin,signup,logout, requestResetPassword, resetPassword};
+
+ const findUserById = async(userId) => {
+   try{
+      let user = await models.User.findByPk(userId);
+      if(!user)
+        return false;
+      return user;
+   }  
+   catch(e){
+      return false;
+   }
+  }
+export {signin,signup,logout, requestResetPassword, resetPassword, findUserById};
 

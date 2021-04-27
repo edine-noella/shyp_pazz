@@ -6,7 +6,7 @@ const {
      } = enums;
 module.exports = {
   up: (queryInterface, Sequelize) => queryInterface.bulkInsert(
-    'Shypments',
+    'ShypCrews',
     [
       {
         userId: Math.floor((1 + Math.random()) * 0x10000)
@@ -31,5 +31,5 @@ module.exports = {
     {},
   ),
 
-  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Shypments', null, {}),
+  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('ShypCrews', null, {}),
 };
