@@ -30,7 +30,7 @@ const  uploadParcel =  async(req,res) => {
     };
 
 //lets get store parcel request
-const getAllParcels = async (req, res) =>{
+const getAllParcelRequests = async (req, res) =>{
   try {
     const allParcels = await models.parcel_req.findAll({})
     res.status(201).send(allParcels)
@@ -43,4 +43,4 @@ const getAllParcels = async (req, res) =>{
   
   
 
-export{uploadParcel,getAllParcels};
+export{uploadParcel,getAllParcelRequests};
