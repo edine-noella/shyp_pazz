@@ -1,8 +1,8 @@
 'use strict';
-const enums = require('../../helpers/enums');
+const  enums = require('../../helpers/enums');
 const {
         travelTypes,IDTypes,transportType,transportMode,
-        transportFrequency, maritialStatus
+        transportFrequency, maritialStatus,accountStatus
       } = enums;
 
 module.exports = {
@@ -15,6 +15,7 @@ module.exports = {
       },
       userId:{
         type:Sequelize.STRING,
+        allowNull:false,
         unique: true
       },
       travelType:{
@@ -78,6 +79,10 @@ module.exports = {
           maritialStatus.ENGAGED,maritialStatus.DIVORCED
         ]),
         allowNull:false
+      },
+      status: {
+        type: Sequelize.ENUM([accountStatus.ACTIVE, accountStatus.INACTIVE, accountStatus.IN_PROCESS]),
+        defaultValue: accountStatus.ACTIVE
       },
       createdAt: {
         allowNull: false,

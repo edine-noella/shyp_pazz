@@ -3,7 +3,7 @@ const enums = require('../../helpers/enums');
 
 const {
   travelTypes,IDTypes,transportType,transportMode,
-  transportFrequency, maritialStatus
+  transportFrequency, maritialStatus,accountStatus
 } = enums;
 
 const {
@@ -45,7 +45,8 @@ module.exports = (sequelize, DataTypes) => {
     maritialStatus: DataTypes.ENUM([
       maritialStatus.MARRIED,maritialStatus.SINGLE,maritialStatus.NOT_MENTIONED,
       maritialStatus.ENGAGED,maritialStatus.DIVORCED
-    ])
+    ]),
+    status: DataTypes.ENUM([accountStatus.ACTIVE, accountStatus.INACTIVE, accountStatus.IN_PROCESS])
   }, {
     sequelize,
     modelName: 'ShypCrew',
