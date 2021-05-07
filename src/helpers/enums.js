@@ -55,5 +55,12 @@ const maritialStatus = {
 }
 Object.freeze(maritialStatus);
 
-const enums = {travelTypes, IDTypes,transportType, transportMode, transportFrequency,maritialStatus, userRoles};
+const accountStatus = {
+    ACTIVE:"ACTIVE",
+    INACTIVE:"INACTIVE",
+    IN_PROCESS:"IN_PROCESS",
+}
+Object.freeze(accountStatus);
+
+const enums = {travelTypes, IDTypes,transportType, transportMode, transportFrequency,maritialStatus, userRoles, accountStatus};
 module.exports = enums;

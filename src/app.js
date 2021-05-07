@@ -5,6 +5,7 @@ import userRoutes from './routers/userRoutes';
 import travelRoute  from './routers/travelRoute';
 import parcelRoute from './routers/parcelRoute';
 import shypcrewRoutes from './routers/shypcrewRoutes';
+import shypatronRoutes from './routers/shypatronRoutes';
 
 console.log("Here")
 const app = express();
@@ -20,5 +21,7 @@ app.use(`${BASE_URL}/user`, userRoutes);
 app.use(`${BASE_URL}/travel_information`, travelRoute);
 app.use(`${BASE_URL}/parcelRequested`, parcelRoute);
 app.use(`${BASE_URL}/shypcrew`, shypcrewRoutes);
+app.use(`${BASE_URL}/shypatron`, shypatronRoutes);
+
 
 module.exports = app;
