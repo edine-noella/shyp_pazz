@@ -4,7 +4,6 @@ import TestUserRoutes from './routers/testUserRouter';
 import userRoutes from './routers/userRoutes';
 import travelRoute  from './routers/travelRoute';
 import parcelRoute from './routers/parcelRoute';
-console.log("Here")
 const app = express();
 const BASE_URL = process.env.BASE_URL;
 

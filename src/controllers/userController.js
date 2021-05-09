@@ -16,7 +16,7 @@ const signin = async(req,res) => {
     const {username,password} = req.body;
     let user;
     try{
-     user = await models.User.findOne({where: {username}})
+     user = await models.AllUsers.findOne({where: {username}})
      if(!user)
       return res.status(401).json({message: "Invalid username or password"});
      }
@@ -64,15 +64,15 @@ const  signup  =  async(req,res) => {
   const {name, email,password,username,country,phone} = req.body;
   const hashedPassword = await hashPassword(password);
  
-models.User.findOne({
+models.AllUsers.findOne({
     where: {
       username: req.body.username
     }
   })
-    .then(async(user) => {
-      if (user) {
+    .then(async(AllUsers) => {
+      if (AllUsers) {
         return res.status(409).json({
-          message: 'username not available',
+          message: 'username arleady in use',
         });
 
       }
@@ -80,10 +80,10 @@ models.User.findOne({
      let isEmailUsed = await findUserByEmail(email);
      if(isEmailUsed)
        return res.status(409).json({
-         message:"email already used"
+         message:"email already in use"
        });
 
-     let newUser =  await models.User.create({
+     let newUser =  await models.AllUsers.create({
         id: uuiSigner(),
         name,
         phone,
@@ -102,6 +102,8 @@ models.User.findOne({
     })
     .catch((error) => res.status(400).json(error.message));
 };
+
+
 
 const resetPassword = async(req,res) => {
   const code = req.params.code;
