@@ -1,11 +1,13 @@
 'use strict';
 const enums = require('../../helpers/enums');
-const {userRoles} = enums;
+
+const {accountStatus} = enums;
+
 const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Shypatron extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -15,22 +17,15 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   };
-  User.init({
-    name: DataTypes.STRING,
-    email: DataTypes.STRING,
-    password: DataTypes.STRING,
+  Shypatron.init({
+    userId: DataTypes.STRING,
     phone: DataTypes.STRING,
+    address: DataTypes.STRING,
     country: DataTypes.STRING,
-    username: DataTypes.STRING,
-
-    userType: DataTypes.STRING,
-    status: DataTypes.ENUM(['ACTIVE','INACTIVE','IN_PROCESSS']),
-
-    userType: DataTypes.ENUM([userRoles.STANDARD,userRoles.ADMIN,userRoles.SHYP_CREW,userRoles.SHYP_PATRON])
-
+    status: DataTypes.ENUM([accountStatus.ACTIVE,accountStatus.INACTIVE,accountStatus.IN_PROCESS])
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'Shypatron',
   });
-  return User;
+  return Shypatron;
 };

@@ -9,9 +9,10 @@
     "start:dev": "nodemon --exec babel-node ./src/index.js",
     "start:prod": "npm run build && node ./build/src/index.js",
     "build": "babel src --out-dir dist",
-    "migrate": "sequelize db:migrate",
+    "migrate": "sequelize db:migrate &&  npm run admin:create",
     "seed": "sequelize db:seed:all",
-    "migrate:reset": "sequelize db:migrate:undo:all && npm run migrate"
+    "migrate:reset": "sequelize db:migrate:undo:all && npm run migrate",
+    "admin:create": "babel-node src/utils/createAdmin.js"
   },
   "repository": {
     "type": "git",

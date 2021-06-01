@@ -7,13 +7,14 @@ import {uuiSigner} from '../utils/signUniqueId';
 import {createResetRequest, verifyPasswordResetCode} from '../helpers/resetPasswordHelper';
 import {generateVerificationCode} from '../utils/generateVerificationCode';
 
-const _lodashProps = ['id','name','email','username','phone','userType','createdAt', 'updatedAt',];
+const _lodashProps = ['id','name','email','username','phone','country','userType','createdAt', 'updatedAt',];
 /*
 TODO: ckeck if user was verified, update the login and password reset
 */
 
 const signin = async(req,res) => {
     const {username,password} = req.body;
+    console.log(req.body)
     let user;
     try{
      user = await models.AllUsers.findOne({where: {username}})
@@ -136,5 +137,17 @@ const findUserByEmail = async(email) => {
      return false;
   }
  }
-export {signin,signup,logout, requestResetPassword, resetPassword};
+
+ const findUserById = async(userId) => {
+   try{
+      let user = await models.User.findByPk(userId);
+      if(!user)
+        return false;
+      return user;
+   }  
+   catch(e){
+      return false;
+   }
+  }
+export {signin,signup,logout, requestResetPassword, resetPassword, findUserById};
 
