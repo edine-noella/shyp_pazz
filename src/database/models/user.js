@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
     phone: DataTypes.STRING,
     country: DataTypes.STRING,
     username: DataTypes.STRING,
-
     userType: DataTypes.STRING,
     status: DataTypes.ENUM(['ACTIVE','INACTIVE','IN_PROCESSS']),
 
