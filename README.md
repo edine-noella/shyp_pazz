@@ -44,8 +44,6 @@ Seed are run to have the sample data in database tables
 ``npm run seed``
 
 # Authors 
-
-- patrickniyogitare28@mgail.com
 - edinenoella@gmail.com
 - benedictokoliechinedu@gmail.com
 
