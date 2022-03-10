@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   FileMessage.init({
-    id: DataTypes.INTEGER
+    description: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'FileMessage',
