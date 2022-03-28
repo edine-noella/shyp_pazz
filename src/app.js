@@ -4,12 +4,14 @@ import TestUserRoutes from './routers/testUserRouter';
 import userRoutes from './routers/userRoutes';
 import travelRoute  from './routers/travelRoute';
 import parcelRoute from './routers/parcelRoute';
-
 import contractRoute from './routers/contractRoute';
 import shypcrewRoutes from './routers/shypcrewRoutes';
 import shypatronRoutes from './routers/shypatronRoutes';
 import withdrawStaticRoute from './routers/withdrawStaticRoute';
-
+import chatRoute from './routers/chat/chatRoute';
+import messagesRoute from './routers/chat/messagesRoute';
+import fileRoute from './routers/chat/fileRoute';
+import groupRoute from './routers/chat/groupRoute';
 
 console.log("Here")
 
@@ -29,5 +31,9 @@ app.use(`${BASE_URL}/shypcrew`, shypcrewRoutes);
 app.use(`${BASE_URL}/shypatron`, shypatronRoutes);
 app.use(`${BASE_URL}/contract`, contractRoute);
 app.use(`${BASE_URL}/statistics`, withdrawStaticRoute);
+app.use(`${BASE_URL}/chat`, chatRoute);
+app.use(`${BASE_URL}/messages`, messagesRoute);
+app.use(`${BASE_URL}/files`,fileRoute);
+app.use(`${BASE_URL}/groups`,groupRoute);
 
 module.exports = app;

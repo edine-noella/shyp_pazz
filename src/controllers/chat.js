@@ -1,9 +1,11 @@
 const ChatService = require('../services/chat')
 
 exports.getChats = async(req, res) => {
+
+  console.log(req.params.userid);
 	try {
 		const {limit, before} = req.query;
-		const [chats,error] = await ChatService.getChats(req.user.id, {limit, before})
+		const [chats,error] = await ChatService.getChats(req.params.userid, {limit, before})
 		
 		if(chats)
 			return res.status(200).json(chats)

@@ -14,8 +14,8 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Member.init({
-    user: DataTypes.INTEGER,
-    group:DataTypes.INTEGER,
+    user: DataTypes.STRING,
+    group: DataTypes.INTEGER,
     isAdmin: DataTypes.BOOLEAN,
     isBlocked: DataTypes.BOOLEAN
   }, {

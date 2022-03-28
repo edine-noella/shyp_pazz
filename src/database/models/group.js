@@ -14,7 +14,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   };
   Group.init({
-    description: DataTypes.STRING
+    unique_name: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'Group',

@@ -6,7 +6,7 @@ import {sendResetPasswordMail} from '../helpers/mailerHelper';
 import {uuiSigner} from '../utils/signUniqueId';
 import {createResetRequest, verifyPasswordResetCode} from '../helpers/resetPasswordHelper';
 import {generateVerificationCode} from '../utils/generateVerificationCode';
-
+import {UserService} from '../services/UserService'
 const _lodashProps = ['id','name','email','username','phone','country','userType','createdAt', 'updatedAt',];
 /*
 TODO: ckeck if user was verified, update the login and password reset
@@ -149,5 +149,17 @@ const findUserByEmail = async(email) => {
       return false;
    }
   }
-export {signin,signup,logout, requestResetPassword, resetPassword, findUserById};
+
+ const getSelf= async(req, res) => {
+    try {
+        const user = await UserService.getSelf(req.user.id) 
+
+        res.status(200).json(user)
+    } catch(err) {
+        console.log(err)
+        res.json({success: false, message:"error when trying to get info about user"})
+    }
+}
+
+export {signin,signup,logout, requestResetPassword, resetPassword, findUserById,getSelf};
 

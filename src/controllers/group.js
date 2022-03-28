@@ -3,13 +3,14 @@ const GroupService = require('../services/group')
 exports.createGroup = async(req, res) => {
     // creator = req.user
     // title
+    console.log(req.params.userId);
     try {
         const {name, unique_name} = req.body;
         if(!name || !unique_name) {
             return res.status(400).json({message: "please fill all fields"});
         }
 
-        const [result, error] = await GroupService.createGroup(req.user.id, name, unique_name)
+        const [result, error] = await GroupService.createGroup(req.params.userId, name, unique_name)
 
         console.log({result, error})
         if(result)
@@ -22,17 +23,17 @@ exports.createGroup = async(req, res) => {
 }
 
 // list of groups for joining.
-exports.getAllGroups = async(req, res) => {
-    try {
-        // pagination
-        // req.query   page=3,4,... limit=20   sort=+name....  
-        const groups = await GroupController.getAllGroups();
+// exports.getAllGroups = async(req, res) => {
+//     try {
+//         // pagination
+//         // req.query   page=3,4,... limit=20   sort=+name....  
+//         const groups = await controllers.group.getAllGroups();
 
-        res.json({success: true, groups});
-    } catch(err) {
-        console.log(err)
-    }
-}
+//         res.json({success: true, groups});
+//     } catch(err) {
+//         console.log(err)
+//     }
+// }
 
 // details of group
 exports.getGroup = async(req, res) => {

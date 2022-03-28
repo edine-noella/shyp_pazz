@@ -4,6 +4,7 @@ const Member = require('../database/models/member')
 const Receiver = require('../database/models/receiver')
 const FileService = require('./file')
 const ReceiverService = require('./receiver')
+import models from '../database/models';
 // group service
 
 // create group (creator, name, unique_name)
@@ -30,7 +31,7 @@ const updateGroup = async(userId, groupId, editedGroup) => {
 // get groups ({where: ...})
 const getGroup = async(groupId) => {
     try {
-        const receiver = await Receiver.findOne({where: {id: groupId, type: 'group'}, include: ['group']});
+        const receiver = await models.Receiver.findOne({where: {id: groupId, type: 'group'}, include: ['group']});
         if(!receiver) {
             return [null, {status: 404, message: "group does not exists"}]
         }
@@ -71,10 +72,10 @@ const deleteGroup = async(userId, groupId) => {
     } else {
         // delete group and receivers
         await group.destroy()
-        const receiver = await Receiver.findOne({where: {id: groupId}})
+        const receiver = await models.Receiver.findOne({where: {id: groupId}})
         await receiver.destroy();
 
-        const members = await Member.findAll({where: {group: groupId}})
+        const members = await models.Member.findAll({where: {group: groupId}})
         await members.forEach(member => {
             member.destroy();
         })
@@ -100,7 +101,7 @@ const getMembers = async(userId, groupId) => {
         return [null, {status: 405, message: "you don't have permissions to read list of members of this group"}]
     }
     // TODO: pagination
-    const members = await Member.findAll({where: {group: groupId}, attributes: ['user', 'isAdmin', 'isBlocked']});
+    const members = await models.Member.findAll({where: {group: groupId}, attributes: ['user', 'isAdmin', 'isBlocked']});
     if(members) {
         return [members,null]
     } 
@@ -129,7 +130,7 @@ const joinGroup = async(userId, groupId) => {
         
         
         // join group
-        await Member.create({
+        await models.Member.create({
             user: userId,
             group: groupId,
             isAdmin: false,
@@ -224,7 +225,7 @@ const addMember = async(userId, groupId, memberId) => {
         }
         
         // add member
-        const newMember = await Member.create({
+        const newMember = await models.Member.create({
             user: memberId,
             group: groupId,
             isAdmin: false,

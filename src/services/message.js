@@ -7,7 +7,7 @@ const Op = require('sequelize').Op
 const Receiver = require('../database/models/receiver')
 const Member = require('../database/models/member')
 const socket = require('../utils/socket.io')()
-
+import models from '../database/models';
 
 const sendTextMessage = async(messageId, text) => {
 	try {
@@ -38,7 +38,7 @@ const sendFileMessage = async(messageId, type, file) => {
 const sendMessage = async(sender, receiverId, message) => {
 	try {
 		
-		const receiver = await Receiver.findOne({where: {id: receiverId}});
+		const receiver = await models.Receiver.findOne({where: {id: receiverId}});
 		if(!receiver) {
 			return [null, {status:404, message: "group or user not found"}]
 		}
@@ -98,7 +98,7 @@ const getMessages = async(selfId, receiverId) => {
 
 	try{
 		
-		const receiver = await Receiver.findOne({where: {id: receiverId}});
+		const receiver = await models.Receiver.findOne({where: {id: receiverId}});
 		let result;
 		if(!receiver) {
 			return [null, {status: 404, message: "group or user don't exists"}]
@@ -106,7 +106,7 @@ const getMessages = async(selfId, receiverId) => {
 		if(receiver.type === 'user') {
 
 			
-			result = await Message.findAll({
+			result = await models.Message.findAll({
 				where: {
 					[Op.or]: [{
 						sender: selfId,

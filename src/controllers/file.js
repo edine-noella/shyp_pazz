@@ -1,7 +1,7 @@
-const formidable = require('formidable')
 const FileService = require('../services/file')
 const rootDir = require('../utils/rootDir')
 const path = require('path')
+const formidable = require('formidable')
 
 exports.getFile = async(req, res) => {
     const { filename } = req.params
@@ -18,7 +18,7 @@ exports.getFile = async(req, res) => {
 
 exports.uploadFile = (req, res) => {
     try {
-        const form = new formidable.IncomingForm()
+        const form = new formidable.IncomingForm() 
         form.uploadDir = path.join(rootDir,'files')
         form.parse(req, async(err, fields, files) => {
             if(err) {

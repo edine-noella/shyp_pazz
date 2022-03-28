@@ -5,7 +5,7 @@ const fs = require('fs/promises')
 const path = require('path')
 const Receiver = require('../database/models/receiver')
 const File = require('../database/models/file')
-
+import models from '../database/models'
 
 // TODO: check file types.
 const uploadFile = async(user_id, fileObject, fileType) => {
@@ -67,7 +67,7 @@ const getFileById = async(file_id) => {
 // user is a receiver also
 const getProfile = async(receiverId) => {
     try {
-        const receiver = await Receiver.findOne({where: {id: receiverId}, attributes: ['type', 'profileId']})
+        const receiver = await models.Receiver.findOne({where: {id: receiverId}, attributes: ['type', 'profileId']})
 
         if(receiver.profileId == null) {
             return await getFile(receiver.type + '-defaultProfile.png')

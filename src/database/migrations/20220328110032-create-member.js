@@ -1,33 +1,25 @@
 'use strict';
-
-const { findLastIndex } = require("lodash");
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Members', {
-      user: {
+      id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      user: {
+        type: Sequelize.STRING
+      },
       group: {
-        type: Sequelize.INTEGER,
-        allowNull:false,
-        primaryKey:true
-
+        type: Sequelize.INTEGER
       },
       isAdmin: {
-        type: Sequelize.BOOLEAN,
-        allowNull:false,
-        default:false
+        type: Sequelize.BOOLEAN
       },
       isBlocked: {
-        type: Sequelize.BOOLEAN,
-        allowNull:false,
-        default:false
+        type: Sequelize.BOOLEAN
       },
-      
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

@@ -2,11 +2,12 @@ const Group = require("../database/models/group");
 const Receiver = require("../database/models/receiver");
 const FileService = require('./file')
 const Member = require('../database/models/member')
+import models from '../database/models';
 
 const createGroup = async(creatorId, name, unique_name) => {
     try {
 
-        const receiver = await Receiver.create({
+        const receiver = await models.Receiver.create({
             unique_name,
             name,
             type: 'group'
@@ -15,12 +16,12 @@ const createGroup = async(creatorId, name, unique_name) => {
             // user or group exists 
             return [null, "a user or group with this unique_name exists"];
         }
-        const group = await Group.create({
+        const group = await models.Group.create({
             id: receiver.id,
             creatorId: creatorId,
         })
         // add user to members list
-        await Member.create({
+        await models.Member.create({
             user: creatorId,
             group: group.id,
             isAdmin: true,
@@ -39,7 +40,7 @@ const createGroup = async(creatorId, name, unique_name) => {
 const getUser = async(id) => {
     // return user if type of receiver is user
     // else return null
-    const receiver = await Receiver.findOne({where: {id: id}, include: ['user']});
+    const receiver = await models.Receiver.findOne({where: {id: id}, include: ['user']});
     if(receiver.user) {
         return {
             id: receiver.id,
@@ -55,7 +56,7 @@ const getUser = async(id) => {
 const getGroup = async(id) => {
     // return user if type of receiver is user
     // else return null
-    const receiver = Receiver.findOne({where: {id: id}, include: ['user']});
+    const receiver = models.Receiver.findOne({where: {id: id}, include: ['user']});
     if(receiver.user) {
         return {
             id: receiver.id,
@@ -69,7 +70,7 @@ const getGroup = async(id) => {
 }
 
 const getReceiver = async(id) => {
-    const receiver = Receiver.findOne({where: {id: id}})
+    const receiver = models.Receiver.findOne({where: {id: id}})
     if(receiver.type === 'user') {
         return await {type: 'user', ...getUser(id)}
     } else {

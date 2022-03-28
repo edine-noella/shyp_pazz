@@ -3,11 +3,13 @@ const Message = require('../database/models/message')
 const MessageService = require('./message')
 const Receiver = require('../database/models/receiver')
 const FileService = require('./file')
-const Member = require('../database/models/member')
+
+
+import models from '../database/models';
 
 const getChat = async(selfId, id) => {
 	try {
-		const receiver = await Receiver.findOne({where: {id: id}, include: ['group', 'user']});
+		const receiver = await models.Receiver.findOne({where: {id: id}, include: ['group', 'user']});
 		if(!receiver) {
 			console.log("ERROR: cannot find chat")
 		}
@@ -59,14 +61,14 @@ const getChats = async(id, paging) => {
 
 		// only get id's of users and groups and insert into an array
 		const chats = [];
-		const groups = await Member.findAll({where: {user: id}});
+		const groups = await models.Member.findAll({where:{user:id}});
 		groups.forEach((group) => {
 			// add groupId to chats;
 			chats.push(group.group)
 		})
 
 		
-		const messages =await Message.findAll({
+		const messages =await models.Message.findAll({
 			where: {
 				[Op.or]: [{
 					sender: id
@@ -117,7 +119,7 @@ const search = async(id, name) => {
 
 	try {
 		getChat(id, 1);
-		const chats = await Receiver.findAll({
+		const chats = await models.Receiver.findAll({
 			where: {
 				[Op.or]: [{
 					name: {
