@@ -56,11 +56,11 @@ const deleteGroup = async(userId, groupId) => {
     // delete group
     // delete receiver
     // must delete all members;
-    const member = await Member.findOne({where: {user: userId, group: groupId}});
+    const member = await models.Member.findOne({where: {user: userId, group: groupId}});
     if(!member) {
         return [null, {status: 405, message: "you are not member of this group"}]
     }
-    const group = await Group.findOne({where: {id: groupId}})
+    const group = await models.Group.findOne({where: {id: groupId}})
     if(!group) {
         return [null, {status: 404, message: "group does not exits"}]
     } 

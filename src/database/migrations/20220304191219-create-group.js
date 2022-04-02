@@ -10,8 +10,16 @@ module.exports = {
       },
       unique_name: {
         type: Sequelize.STRING,
-        allowNull:true
+        allowNull:false
       },
+      creatorId: {
+       type:Sequelize.STRING,
+       allowNull:true
+      },
+      description: {
+        type:Sequelize.STRING,
+        allowNull:true
+       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

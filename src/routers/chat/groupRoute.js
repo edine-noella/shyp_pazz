@@ -15,10 +15,11 @@ const router = express.Router();
 
 router.post('/createGroup/:userId',createGroup);
 // router.get('/getAllGroups',getAllGroups);
-router.get('/getGroup/:groupId',getGroup);
-router.put('/editGroup/:groupId',editGroup);
-router.delete('/deleteGroup/:groupId',deleteGroup);
+// router.get('/getGroup/:groupId',getGroup);
+router.put('/editGroup/:groupId/user/:userId',editGroup);
+router.delete('/deleteGroup/:groupId/user/:userId',deleteGroup);
 
+//un tested apis
 router.post('joinGroup/:groupId/join',joinGroup);
 router.post('/leaveGroup/:groupId/leave',leaveGroup);
 router.post('/addMember/:groupId/member',addMember);

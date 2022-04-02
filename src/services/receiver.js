@@ -82,14 +82,14 @@ const updateGroup = async(userId, groupId, editedGroup) => {
     try {
         // check premissions
         
-        const receiver = await Receiver.findOne({where: {id: groupId, type: 'group'}})
+        const receiver = await models.Receiver.findOne({where: {id: groupId, type: 'group'}})
         if(!receiver) {
             // group not found
             return [null, {status: 404, message: 'group with this id does not exits'}];
         }
-        const group = await Group.findOne({where: {id: receiver.id}});
+        const group = await models.Group.findOne({where: {id: receiver.id}});
 
-        const member = await Member.findOne({where: {user: userId, group: groupId}})
+        const member = await models.Member.findOne({where: {user: userId, group: groupId}})
         if(!member) {
             return [null, {status: 405, message: "you are not member of this group"}];
         }
@@ -105,21 +105,22 @@ const updateGroup = async(userId, groupId, editedGroup) => {
         const name = editedGroup.name || receiver.name;
         const description = editedGroup.description || group.description
         const profileId = editedGroup.profileId || receiver.profileId
-
+        const unique_name = editedGroup.unique_name || group.unique_name
+        
         receiver.name = name;
         receiver.profileId = profileId
         group.description = description
-        
+        group.unique_name= unique_name
         // creator can change:
         // - unique_name
         // - creatorId
         if(group.creatorId === userId) {
             const newCreatorId = editedGroup.creatorId || group.creatorId
-            const newCreatorMember = await Member.findOne({where: {user: newCreatorId, group: groupId}});
+            const newCreatorMember = await models.Member.findOne({where: {user: newCreatorId, group: groupId}});
             if(!newCreatorMember) {
                 return [null, {status: 405, message: "you cannot change owner of this group to a non-member user"}]
             }
-            const unique_name = editedGroup.unique_name || receiver.unique_name
+            // const unique_name = editedGroup.unique_name || receiver.unique_name
         } else {
             if( userId   !== group.creatorId ||
                 editedGroup.unique_name !== receiver.unique_name) {
@@ -133,7 +134,7 @@ const updateGroup = async(userId, groupId, editedGroup) => {
             return [{
                 id: updateGroup.id,
                 name: updatedReceiver.name,
-                unique_name: updatedReceiver.unique_name,
+                unique_name: updatedGroup.unique_name,
                 profile: await FileService.getProfile(updatedReceiver.id),
                 creatorId: updatedGroup.creatorId,
             createdAt: updatedGroup.createdAt,

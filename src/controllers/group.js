@@ -3,6 +3,7 @@ const GroupService = require('../services/group')
 exports.createGroup = async(req, res) => {
     // creator = req.user
     // title
+    // const creatorId = req.params.userId;
     console.log(req.params.userId);
     try {
         const {name, unique_name} = req.body;
@@ -27,7 +28,7 @@ exports.createGroup = async(req, res) => {
 //     try {
 //         // pagination
 //         // req.query   page=3,4,... limit=20   sort=+name....  
-//         const groups = await controllers.group.getAllGroups();
+//         const groups = await GroupController.getAllGroups();
 
 //         res.json({success: true, groups});
 //     } catch(err) {
@@ -63,7 +64,8 @@ exports.editGroup = async(req, res) => {
         if(!groupId) {
             res.status(400).json({message: "groupId field is empty"});
         }
-        const [result, error] = await GroupService.updateGroup(req.user.id, groupId, {
+        //the userId of user who is editing the group
+        const [result, error] = await GroupService.updateGroup(req.params.userId, groupId, {
             name,
             profileId,
             description,
@@ -85,7 +87,7 @@ exports.editGroup = async(req, res) => {
 exports.deleteGroup = async(req, res) => {
     try {
         const {groupId} = req.params;
-        const [result, error] = await GroupService.deleteGroup(req.user.id, groupId)
+        const [result, error] = await GroupService.deleteGroup(req.params.userId, groupId)
         if(result)
             res.status(410).json({message: "group deleted successfully"})
         else
